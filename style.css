@@ -1,0 +1,290 @@
+/* ===== IMPORTS & RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  font-family: "Lato", sans-serif;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe4f0 0%, #fff0f6 40%, #fce4ec 70%, #ffe8d6 100%);
+  overflow-x: hidden;
+  position: relative;
+}
+/* ===== HERO TITLE ===== */
+.hero-title {
+  text-align: center;
+  z-index: 2;
+  padding: 0 1rem;
+}
+.subtitle {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: #c2185b;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+  opacity: 0;
+  animation: fadeInDown 1s ease forwards 0.3s;
+}
+.main-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  background: linear-gradient(135deg, #e91e8c, #c2185b, #ff6f61);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards 0.6s;
+}
+/* ===== CAROUSEL ===== */
+.scene, .a3d { display: grid; }
+.scene {
+  overflow: hidden;
+  perspective: 35em;
+  mask: linear-gradient(90deg, #0000, red 20% 80%, #0000);
+  width: min(100vw, 1200px);
+}
+.a3d {
+  place-self: center;
+  transform-style: preserve-3d;
+  animation: ry 32s linear infinite;
+}
+@keyframes ry { to { rotate: y 1turn; } }
+.card {
+  --w: 17.5em;
+  --ba: 1turn/var(--n);
+  grid-area: 1/1;
+  width: var(--w);
+  aspect-ratio: 7/10;
+  object-fit: cover;
+  border-radius: 1.5em;
+  backface-visibility: hidden;
+  transform: rotatey(calc(var(--i)*var(--ba))) translatez(calc(-1*(.5*var(--w) + .5em)/tan(.5*var(--ba))));
+  box-shadow: 0 8px 32px rgba(194, 24, 91, 0.18);
+  transition: filter 0.3s;
+}
+@media (prefers-reduced-motion: reduce) { .a3d { animation-duration: 128s; } }
+/* ===== CTA BUTTON ===== */
+.cta-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards 1.2s;
+}
+.cta-hint {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.1rem;
+  color: #ad1457;
+  opacity: 0.85;
+}
+.open-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2.2rem;
+  background: linear-gradient(135deg, #e91e8c, #c2185b);
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 28px rgba(233, 30, 140, 0.38);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.open-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  border-radius: inherit;
+}
+.open-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 36px rgba(233,30,140,0.48); }
+.open-btn:active { transform: translateY(0); }
+.btn-heart { font-size: 1.3rem; animation: heartbeat 1.6s ease infinite; }
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.2); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  70% { transform: scale(1); }
+}
+/* ===== FLOATING HEARTS ===== */
+.floating-hearts {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.floating-hearts span {
+  position: absolute;
+  bottom: -60px;
+  font-size: clamp(1rem, 3vw, 2rem);
+  opacity: 0;
+  animation: floatUp 8s ease-in infinite;
+}
+.floating-hearts span:nth-child(1)  { left: 8%;  animation-delay: 0s;    animation-duration: 7s;  font-size: 1.2rem; }
+.floating-hearts span:nth-child(2)  { left: 18%; animation-delay: 1.5s;  animation-duration: 9s;  font-size: 1.6rem; }
+.floating-hearts span:nth-child(3)  { left: 32%; animation-delay: 3s;    animation-duration: 8s;  font-size: 1rem; }
+.floating-hearts span:nth-child(4)  { left: 48%; animation-delay: 0.8s;  animation-duration: 11s; font-size: 1.4rem; }
+.floating-hearts span:nth-child(5)  { left: 62%; animation-delay: 2.2s;  animation-duration: 7.5s; font-size: 1.8rem; }
+.floating-hearts span:nth-child(6)  { left: 75%; animation-delay: 4s;    animation-duration: 9.5s; font-size: 1.1rem; }
+.floating-hearts span:nth-child(7)  { left: 85%; animation-delay: 1s;    animation-duration: 10s; font-size: 1.5rem; }
+.floating-hearts span:nth-child(8)  { left: 93%; animation-delay: 3.5s;  animation-duration: 8.5s; font-size: 1.2rem; }
+@keyframes floatUp {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.4; }
+  100% { opacity: 0; transform: translateY(-110vh) rotate(25deg); }
+}
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(100, 0, 50, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  padding: 1rem;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-box {
+  background: linear-gradient(160deg, #fff5f8, #fff0ec);
+  border-radius: 2rem;
+  padding: 2.5rem 2rem 2rem;
+  width: min(480px, 96vw);
+  box-shadow: 0 24px 80px rgba(194, 24, 91, 0.25);
+  position: relative;
+  transform: scale(0.8) translateY(40px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+  border: 1.5px solid rgba(233, 30, 140, 0.12);
+}
+.modal-overlay.active .modal-box {
+  transform: scale(1) translateY(0);
+}
+.modal-deco {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  animation: bounce 1s ease infinite alternate;
+}
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+.modal-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.7rem;
+  color: #880e4f;
+  margin-bottom: 0.4rem;
+}
+.modal-subtitle {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.15rem;
+  color: #c2185b;
+  margin-bottom: 1.4rem;
+}
+.birthday-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  flex: 1;
+}
+.form-group label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #ad1457;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 2px solid #f48fb1;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-family: "Lato", sans-serif;
+  background: rgba(255,255,255,0.85);
+  color: #4a0030;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.form-group input::-webkit-inner-spin-button,
+.form-group input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #e91e8c;
+  box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.12);
+}
+.form-error {
+  color: #c62828;
+  font-size: 0.88rem;
+  min-height: 1.2rem;
+  font-style: italic;
+}
+.submit-btn {
+  margin-top: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(135deg, #e91e8c, #c2185b);
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(233,30,140,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(233,30,140,0.45); }
+.modal-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: rgba(194,24,91,0.1);
+  border: none;
+  color: #c2185b;
+  font-size: 1rem;
+  width: 2rem; height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: rgba(194,24,91,0.2); }
+/* ===== KEYFRAME ANIMATIONS ===== */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>For You ??</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A sweet surprise page made just for you." />
+    <meta name="theme-color" content="#ffe4f0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="hero-title">
+      <p class="subtitle fade-in-down">A little something</p>
+      <h1 class="main-title fade-in-up">made just for you ??</h1>
+    </div>
+    <div class="scene">
+      <div class="a3d" style="--n: 12">
+        <img class="card" src="./images/img1.jpeg" style="--i: 0" alt="memory 1" />
+        <img class="card" src="./images/img2.jpeg" style="--i: 1" alt="memory 2" />
+        <img class="card" src="./images/img3.jpeg" style="--i: 2" alt="memory 3" />
+        <img class="card" src="./images/img4.jpeg" style="--i: 3" alt="memory 4" />
+        <img class="card" src="./images/img5.jpeg" style="--i: 4" alt="memory 5" />
+        <img class="card" src="./images/img6.jpeg" style="--i: 5" alt="memory 6" />
+        <img class="card" src="./images/img7.jpeg" style="--i: 6" alt="memory 7" />
+        <img class="card" src="./images/img8.jpeg" style="--i: 7" alt="memory 8" />
+        <img class="card" src="./images/img9.jpeg" style="--i: 8" alt="memory 9" />
+        <img class="card" src="./images/img10.jpeg" style="--i: 9" alt="memory 10" />
+        <img class="card" src="./images/img11.jpeg" style="--i: 10" alt="memory 11" />
+        <img class="card" src="./images/img12.jpeg" style="--i: 11" alt="memory 12" />
+      </div>
+    </div>
+    <div class="cta-wrapper fade-in-up-delay">
+      <p class="cta-hint">Ready to see what is inside?</p>
+      <button class="open-btn" id="openBtn" aria-label="Open surprise">
+        <span class="btn-heart">??</span>
+        <span class="btn-text">Open Your Surprise</span>
+      </button>
+    </div>
+    <div class="floating-hearts" aria-hidden="true">
+      <span>??</span><span>??</span><span>??</span><span>??</span>
+      <span>??</span><span>??</span><span>??</span><span>??</span>
+    </div>
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-box">
+        <div class="modal-deco">??</div>
+        <h2 class="modal-title" id="modalTitle">Before you go in </h2>
+        <p class="modal-subtitle">When is my birthday? ??</p>
+        <form class="birthday-form" id="birthdayForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="dayInput">Day</label>
+              <input type="number" id="dayInput" name="day" min="1" max="31" placeholder="DD" required autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="monthInput">Month</label>
+              <select id="monthInput" name="month" required>
+                <option value="" disabled selected>Month</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="yearInput">Year</label>
+              <input type="number" id="yearInput" name="year" min="1900" max="2025" placeholder="YYYY" required autocomplete="off" />
+            </div>
+          </div>
+          <p class="form-error" id="formError" role="alert"></p>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span>Let me in ?</span>
+          </button>
+        </form>
+        <button class="modal-close" id="modalClose" aria-label="Close">?</button>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
