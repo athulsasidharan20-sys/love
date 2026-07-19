@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { data: letters, error } = await supabase
       .from('letters')
       .select('*')
-      .eq('user', user)
+      .eq('owner', user)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         card.href = `view-letter.html?user=${user}&id=${data.id}`;
         card.className = "folder-card fade-in-up";
 
-        const fName = data.folderName || data.foldername || "Unnamed";
+        const fName = data.folder_name || "Unnamed";
 
         card.innerHTML = `
           <div class="folder-icon">📁</div>

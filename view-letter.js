@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (data) {
       // Update Header
-      const fName = data.folderName || data.foldername || "Unnamed";
+      const fName = data.folder_name || "Unnamed";
       document.getElementById("folderNameDisplay").textContent = `📁 ${fName}`;
       
       // Split content into lines for the typing animation

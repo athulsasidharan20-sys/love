@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       
       if (data) {
-        folderNameInput.value = data.folderName || data.foldername || "";
+        folderNameInput.value = data.folder_name || "";
         letterContentInput.value = data.content || "";
         
         if (data.images && Array.isArray(data.images) && data.images.length > 0) {
@@ -121,8 +121,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const { data: existingLetters, error: duplicateError } = await supabase
         .from('letters')
         .select('id')
-        .eq('user', user)
-        .eq('folderName', folderName);
+        .eq('owner', user)
+        .eq('folder_name', folderName);
         
       if (duplicateError) throw duplicateError;
       
@@ -181,10 +181,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         const { error: updateError } = await supabase
           .from('letters')
           .update({
-            folderName: folderName,
+            folder_name: folderName,
             content: content,
-            images: finalImages,
-            updated_at: now
+            images: finalImages
           })
           .eq('id', letterId);
           
@@ -196,11 +195,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           .from('letters')
           .insert({
             owner: user,
-            folder_Name: folderName,
+            folder_name: folderName,
             content: content,
             images: finalImages,
-            created_at: now,
-            
+            created_at: now
           });
           
         if (insertError) throw insertError;
