@@ -1,3 +1,8 @@
+import { supabase } from "./supabase-config.js";
+
+import { supabase } from "./supabase-config.js";
+void supabase;
+
 // ===== MODAL LOGIC =====
 const openBtn      = document.getElementById("openBtn");
 const modalOverlay = document.getElementById("modalOverlay");

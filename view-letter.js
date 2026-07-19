@@ -88,6 +88,19 @@ function animateLetter(lines) {
   setTimeout(revealNext, 1200);
 }
 
+function extractStoragePathFromUrl(url) {
+  try {
+    const parsedUrl = new URL(url);
+    const prefix = "/storage/v1/object/public/letter-images/";
+    if (parsedUrl.pathname.startsWith(prefix)) {
+      return decodeURIComponent(parsedUrl.pathname.slice(prefix.length));
+    }
+  } catch (error) {
+    console.warn("Could not parse image URL:", url, error);
+  }
+  return null;
+}
+
 // ===== INIT =====
 document.addEventListener("DOMContentLoaded", async () => {
   initParticles();
@@ -104,6 +117,54 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("backBtn").href = `letters.html?user=${user}`;
   document.getElementById("editBtn").href = `write-letter.html?user=${user}&id=${letterId}`;
+
+  const deleteBtn = document.getElementById("deleteBtn");
+  deleteBtn.addEventListener("click", async () => {
+    const confirmed = window.confirm("Delete this letter and its uploaded images?");
+    if (!confirmed) return;
+
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = "Deleting...";
+
+    try {
+      const { data: currentLetter, error: fetchError } = await supabase
+        .from("letters")
+        .select("images")
+        .eq("id", letterId)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      const imageUrls = Array.isArray(currentLetter?.images) ? currentLetter.images : [];
+      const storagePaths = imageUrls
+        .map(extractStoragePathFromUrl)
+        .filter(Boolean);
+
+      if (storagePaths.length > 0) {
+        const { error: storageError } = await supabase.storage
+          .from("letter-images")
+          .remove(storagePaths);
+
+        if (storageError) {
+          console.error("Storage delete error:", storageError);
+        }
+      }
+
+      const { error: deleteError } = await supabase
+        .from("letters")
+        .delete()
+        .eq("id", letterId);
+
+      if (deleteError) throw deleteError;
+
+      window.location.href = `letters.html?user=${user}`;
+    } catch (error) {
+      console.error("Error deleting letter:", error);
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = "🗑️ Delete Letter";
+      alert("Could not delete the letter. Please try again.");
+    }
+  });
 
   // Change signature based on who is writing/reading
   if (user === "athul") {

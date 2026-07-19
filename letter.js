@@ -1,3 +1,5 @@
+import { supabase } from "./supabase-config.js";
+
 // ===== READ BIRTHDAY FROM SESSION =====
 let birthday = null;
 try {
