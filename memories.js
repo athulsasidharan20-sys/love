@@ -56,7 +56,10 @@ async function loadMemories() {
     .order('created_at', { ascending: false });
 
   if (error) throw error;
-  memories = data || [];
+  memories = (data || []).map((item) => ({
+    ...item,
+    date: item.memory_date || item.date || null
+  }));
   renderMemories();
 }
 
@@ -108,8 +111,9 @@ async function handleSubmit(event) {
       title,
       body,
       author,
-      date,
+      memory_date: date,
       image_url: imageUrl || null,
+      rotation: Math.floor(Math.random() * 8) - 4,
       created_at: new Date().toISOString()
     });
 
