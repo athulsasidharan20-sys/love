@@ -1,8 +1,5 @@
 import { supabase } from "./supabase-config.js";
 
-import { supabase } from "./supabase-config.js";
-void supabase;
-
 // ===== MODAL LOGIC =====
 const openBtn      = document.getElementById("openBtn");
 const modalOverlay = document.getElementById("modalOverlay");
@@ -53,6 +50,6 @@ birthdayForm.addEventListener("submit", (e) => {
   document.body.style.transition = "opacity 0.6s ease";
   document.body.style.opacity = "0";
   setTimeout(() => {
-    window.location.href = "main.html";
+    window.location.assign("main.html");
   }, 650);
 });
