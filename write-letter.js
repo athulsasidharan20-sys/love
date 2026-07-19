@@ -195,12 +195,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const { error: insertError } = await supabase
           .from('letters')
           .insert({
-            user: user,
-            folderName: folderName,
+            owner: user,
+            folder_Name: folderName,
             content: content,
             images: finalImages,
             created_at: now,
-            updated_at: now
+            
           });
           
         if (insertError) throw insertError;
