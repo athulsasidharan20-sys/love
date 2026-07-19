@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Write Letter 📝</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffe4f0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./write-letter.css" />
+  </head>
+  <body>
+    <div class="floating-hearts" aria-hidden="true">
+      <span>💕</span><span>💖</span><span>💗</span><span>💓</span>
+      <span>💞</span><span>💕</span><span>💖</span><span>💗</span>
+    </div>
+
+    <div class="write-container fade-in-up">
+      <header class="write-header">
+        <button id="cancelBtn" class="back-btn">← Cancel</button>
+        <h1 class="main-title">Write a Letter</h1>
+      </header>
+
+      <form id="writeForm" class="write-form">
+        <div class="form-group">
+          <label for="folderName">Folder Name</label>
+          <input type="text" id="folderName" placeholder="e.g. First Meet" required />
+          <p id="folderError" class="form-error"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="letterContent">Letter Content</label>
+          <textarea id="letterContent" placeholder="Write your heart out..." rows="10" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="imageUpload">Upload Images (Optional)</label>
+          <input type="file" id="imageUpload" accept="image/*" multiple />
+          <div id="imagePreviewContainer" class="image-preview-container"></div>
+        </div>
+
+        <div class="submit-wrapper">
+          <button type="submit" id="submitBtn" class="open-btn">
+            <span class="btn-heart">❤️</span>
+            <span class="btn-text">Save Letter</span>
+          </button>
+          <p id="submitStatus" class="submit-status"></p>
+        </div>
+      </form>
+    </div>
+    
+    <script type="module" src="./write-letter.js"></script>
+  </body>
+</html>

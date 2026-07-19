@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>View Letter 💌</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1a0a10" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./letter.css" />
+    <link rel="stylesheet" href="./view-letter.css" />
+  </head>
+  <body>
+    <!-- ===== PARTICLE CANVAS ===== -->
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
+    
+    <!-- ===== FLOATING PETALS ===== -->
+    <div class="petal-container" aria-hidden="true">
+      <span class="petal">🌸</span><span class="petal">🌹</span>
+      <span class="petal">🌸</span><span class="petal">🌺</span>
+      <span class="petal">🌸</span><span class="petal">💮</span>
+      <span class="petal">🌸</span><span class="petal">🌹</span>
+      <span class="petal">🌸</span><span class="petal">🌺</span>
+    </div>
+
+    <main class="page-wrapper">
+      <div class="view-header-actions fade-in-down">
+        <a href="#" id="backBtn" class="back-btn-light">← Back to Folders</a>
+      </div>
+
+      <!-- ===== GREETING HEADER ===== -->
+      <header class="letter-header" id="letterHeader">
+        <p class="letter-from" id="folderNameDisplay">Loading letter...</p>
+        <h1 class="letter-greeting" id="greetingTitle">Dearest One,</h1>
+      </header>
+
+      <!-- ===== LETTER CARD ===== -->
+      <article class="letter-card" id="letterCard" style="display: none;">
+        <div class="letter-inner">
+          <div class="letter-decoration top-deco">❧</div>
+          <div class="letter-body" id="letterBody">
+            <!-- Text injected by JS with typing animation -->
+          </div>
+          <div class="letter-signature">
+            <p class="signature-line">With all my love,</p>
+            <p class="signature-name" id="signatureName">Forever Yours 💗</p>
+          </div>
+          <div class="letter-decoration bottom-deco">❧</div>
+        </div>
+      </article>
+
+      <!-- ===== IMAGES SECTION ===== -->
+      <section class="images-section" id="imagesSection" style="display: none;">
+        <div class="images-grid" id="imagesGrid">
+          <!-- Images injected here -->
+        </div>
+      </section>
+
+      <!-- ===== ACTIONS ===== -->
+      <div class="view-actions" id="viewActions" style="display: none;">
+        <a href="#" id="editBtn" class="edit-btn">
+          <span>✏️ Edit Letter</span>
+        </a>
+      </div>
+    </main>
+
+    <script type="module" src="./view-letter.js"></script>
+  </body>
+</html>
