@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Memory Journal</title>
+    <meta name="theme-color" content="#ffe4f0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..955;1,400..955&family=Inter:wght@300;400;500;600;700&family=La+Belle+Aurore&family=Great+Vibes&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * { box-sizing: border-box; }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+        font-family: 'Inter', sans-serif;
+        background: radial-gradient(circle at center, #fffbfb 0%, #fff0f3 60%, #fde2e6 100%);
+        color: #7f1d1d;
+      }
+
+      .font-handwritten-caveat { font-family: 'Caveat', cursive; }
+      .font-letter { font-family: 'La Belle Aurore', cursive; }
+      .font-serif-elegant { font-family: 'Playfair Display', serif; }
+      .font-fancy { font-family: 'Great Vibes', cursive; }
+
+      .collage-canvas {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #fff8fa 0%, #fff0f3 50%, #fce7f3 100%);
+        overflow: hidden;
+      }
+
+      .paper-grain-overlay {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        pointer-events: none;
+        z-index: 1;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      .grid-overlay {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(244, 63, 94, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(244, 63, 94, 0.015) 1px, transparent 1px);
+        background-size: 24px 24px;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      #collage-ambient-particles {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .page-shell {
+        position: relative;
+        z-index: 2;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 2rem 1rem 4rem;
+      }
+
+      .back-btn {
+        position: absolute;
+        top: 1.2rem;
+        left: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.65rem 0.95rem;
+        border: 1px solid rgba(244, 114, 182, 0.28);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.8);
+        color: #be185d;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 700;
+        box-shadow: 0 8px 18px rgba(190, 24, 93, 0.08);
+        cursor: pointer;
+      }
+
+      .back-btn:hover { transform: translateY(-2px); }
+
+      .header-block {
+        text-align: center;
+        margin: 3.5rem auto 2.5rem;
+        max-width: 720px;
+      }
+
+      .header-kicker {
+        font-family: 'Caveat', cursive;
+        font-size: 1.25rem;
+        color: #ec4899;
+        margin-bottom: 0.4rem;
+      }
+
+      .header-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        color: #880e4f;
+        font-weight: 700;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      .header-copy {
+        margin-top: 0.8rem;
+        color: rgba(127, 29, 29, 0.72);
+        font-size: 0.95rem;
+      }
+
+      .action-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .add-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.85rem 1.25rem;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f43f5e, #ec4899);
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        box-shadow: 0 12px 24px rgba(244, 114, 182, 0.25);
+        cursor: pointer;
+      }
+
+      .grid-wrap {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+
+      .memory-card {
+        position: relative;
+        padding: 1rem 1rem 1.2rem;
+        border-radius: 0.35rem;
+        background: rgba(255,255,255,0.95);
+        border: 1px solid rgba(244, 114, 182, 0.18);
+        box-shadow: 0 12px 24px -10px rgba(190, 24, 93, 0.14);
+      }
+
+      .memory-pin {
+        position: absolute;
+        top: -0.7rem;
+        left: 50%;
+        transform: translateX(-50%) rotate(3deg);
+        width: 12px;
+        height: 28px;
+        background: linear-gradient(180deg, #fef3c7, #fcd34d);
+        border-radius: 0.25rem;
+        border: 1px solid rgba(180, 83, 9, 0.16);
+      }
+
+      .memory-image {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        border-radius: 0.3rem;
+        display: block;
+      }
+
+      .memory-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        color: #831843;
+        font-weight: 700;
+        margin: 0.85rem 0 0.35rem;
+      }
+
+      .memory-body {
+        font-family: 'Caveat', cursive;
+        font-size: 1.1rem;
+        color: #7f1d1d;
+        line-height: 1.3;
+        min-height: 70px;
+      }
+
+      .memory-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.9rem;
+        font-size: 0.75rem;
+        color: #be185d;
+      }
+
+      .delete-btn {
+        border: none;
+        background: transparent;
+        color: #be185d;
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        border: 1px dashed rgba(244, 114, 182, 0.35);
+        border-radius: 1rem;
+        background: rgba(255,255,255,0.7);
+        margin: 0 auto;
+        max-width: 560px;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(127, 29, 29, 0.2);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        z-index: 20;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.25s ease;
+      }
+
+      .modal-backdrop.active { opacity: 1; visibility: visible; }
+
+      .modal-card {
+        width: min(100%, 540px);
+        background: white;
+        border-radius: 1rem;
+        border: 1px solid rgba(244, 114, 182, 0.2);
+        padding: 1.35rem;
+        box-shadow: 0 16px 40px rgba(190, 24, 93, 0.12);
+      }
+
+      .modal-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        color: #831843;
+        margin: 0 0 0.35rem;
+      }
+
+      .modal-subtitle { font-size: 0.9rem; color: rgba(127,29,29,0.72); margin: 0 0 1rem; }
+
+      .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.9rem; }
+      .field label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #be185d; }
+      .field input, .field textarea, .field select { border: 1px solid rgba(244, 114, 182, 0.25); border-radius: 0.7rem; padding: 0.75rem 0.8rem; font: inherit; color: #7f1d1d; background: #fff8fa; }
+      .field textarea { min-height: 100px; resize: vertical; }
+      .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; }
+      .modal-actions button { border: none; border-radius: 999px; padding: 0.7rem 1rem; font-weight: 700; cursor: pointer; }
+      .cancel-btn { background: #fdf2f8; color: #be185d; }
+      .save-btn { background: linear-gradient(135deg, #f43f5e, #ec4899); color: white; }
+
+      @media (max-width: 900px) {
+        .grid-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 640px) {
+        .grid-wrap { grid-template-columns: 1fr; }
+        .page-shell { padding-top: 3.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="collage-canvas">
+      <div class="grid-overlay"></div>
+      <div class="paper-grain-overlay"></div>
+      <canvas id="collage-ambient-particles"></canvas>
+
+      <div class="page-shell">
+        <a href="main.html" class="back-btn" onclick="window.location.href='main.html'; return false;">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Go Back</span>
+        </a>
+
+        <div class="header-block">
+          <div class="header-kicker">our digital scrapbook</div>
+          <h1 class="header-title">Our Memory Journal</h1>
+          <p class="header-copy">Every sweet dessert date, unexpected walk, and little note preserved in one beautiful place.</p>
+        </div>
+
+        <div class="action-bar">
+          <button class="add-btn" id="openModalBtn"><i class="fa-solid fa-camera"></i><span>Add a Memory Frame</span></button>
+        </div>
+
+        <div id="memories-grid" class="grid-wrap"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <h3 class="header-title" style="font-size:1.35rem;">Your Journal is Quiet</h3>
+          <p class="header-copy">Add your first memory and it will appear here.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="memoryModal">
+      <div class="modal-card">
+        <h3 class="modal-title">Capture a Memory Frame</h3>
+        <p class="modal-subtitle">Add a photo, a title, and a few words to preserve the moment.</p>
+        <form id="memoryForm">
+          <div class="field">
+            <label for="title">Moment Title</label>
+            <input id="title" name="title" required />
+          </div>
+          <div class="field">
+            <label for="imageFile">Frame Artwork / Image</label>
+            <input id="imageFile" name="imageFile" type="file" accept="image/*" />
+          </div>
+          <div class="field">
+            <label for="body">A few sentences</label>
+            <textarea id="body" name="body" required></textarea>
+          </div>
+          <div class="field">
+            <label for="author">Captured By</label>
+            <select id="author" name="author">
+              <option value="Athul">Athul</option>
+              <option value="Her Name">Her Name</option>
+              <option value="Both of Us">Both of Us</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" />
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="cancel-btn" id="closeModalBtn">Cancel</button>
+            <button type="submit" class="save-btn">Save Memory ✨</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="./memories.js"></script>
+  </body>
+</html>

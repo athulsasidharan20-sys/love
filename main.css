@@ -11,6 +11,111 @@
   max-width: 800px;
 }
 
+.hanging-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  animation: swingPendulum 4.5s ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+
+.suspension-wire {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(251, 207, 232, 0.95), rgba(244, 114, 182, 0.45));
+  position: relative;
+}
+
+.suspension-wire::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(244, 114, 182, 0.35);
+}
+
+.keepsake-card {
+  position: relative;
+  width: 170px;
+  background: #fff;
+  border: 1px solid rgba(244, 114, 182, 0.22);
+  border-radius: 0.35rem;
+  box-shadow: 0 12px 24px -10px rgba(194, 24, 91, 0.16);
+  padding: 1rem 0.8rem 0.9rem;
+  margin-top: -1px;
+}
+
+.clothespin {
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(4deg);
+  width: 8px;
+  height: 24px;
+  border-radius: 0.2rem;
+  background: linear-gradient(180deg, #fef3c7, #fcd34d);
+  border: 1px solid rgba(180, 83, 9, 0.2);
+  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.1);
+}
+
+.keepsake-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+}
+
+.keepsake-label {
+  font-family: "Dancing Script", cursive;
+  font-size: 0.8rem;
+  color: #f06292;
+}
+
+.keepsake-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
+  color: #880e4f;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.keepsake-btn {
+  margin-top: 0.35rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f06292, #ec4899);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 16px rgba(236, 72, 153, 0.18);
+}
+
+.keepsake-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(236, 72, 153, 0.22);
+}
+
+@keyframes swingPendulum {
+  0% {
+    transform: rotate(-4deg);
+  }
+  100% {
+    transform: rotate(4deg);
+  }
+}
+
 .cards-wrapper {
   display: flex;
   flex-direction: row;
